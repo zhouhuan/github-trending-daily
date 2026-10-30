@@ -28,7 +28,7 @@ def print_text_report(projects, date_str):
 
     print("\n" + "=" * 70)
     print(f"  GitHub 今日热门 - {date_str}")
-    print(f"  每日精选 Top 3 热门项目 · 今日共新增 ★ {total_daily:,} 星")
+    print(f"  每日精选 Top {len(projects)} 热门项目 · 今日共新增 ★ {total_daily:,} 星")
     print("=" * 70)
 
     for i, p in enumerate(projects, 1):
@@ -73,8 +73,8 @@ def main():
     parser = argparse.ArgumentParser(description="GitHub 今日热门 - 每日推送")
     parser.add_argument("--no-email", action="store_true",
                         help="不发送邮件，仅在控制台打印结果")
-    parser.add_argument("--top", type=int, default=3,
-                        help="爬取的热门项目数量（默认3）")
+    parser.add_argument("--top", type=int, default=10,
+                        help="爬取的热门项目数量（默认10）")
     args = parser.parse_args()
 
     print("=" * 60)

@@ -181,10 +181,10 @@ def generate_html_report(projects, date_str):
                 🚀 GitHub 今日热门
             </div>
             <div style="font-size:15px;opacity:0.9;">
-                {date_str} · 每日精选 Top 3 热门项目
+                {date_str} · 每日精选 Top {len(projects)} 热门项目
             </div>
             <div style="margin-top:12px;font-size:14px;opacity:0.85;">
-                今日 3 个项目共新增 ★ {total_daily:,} 星
+                今日 {len(projects)} 个项目共新增 ★ {total_daily:,} 星
             </div>
         </div>
 

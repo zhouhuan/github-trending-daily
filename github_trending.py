@@ -48,7 +48,7 @@ class GitHubTrending:
             print(f"[ERROR] 获取 trending 页面失败: {e}")
             return None
 
-    def parse_trending(self, html, top_n=3):
+    def parse_trending(self, html, top_n=10):
         """解析 trending 页面，提取前 N 个项目"""
         if not html:
             return []
@@ -173,7 +173,7 @@ class GitHubTrending:
             print(f"[WARN] 获取项目详情失败 ({owner}/{repo}): {e}")
             return {}
 
-    def get_top_projects(self, top_n=3, with_readme=True, with_details=True):
+    def get_top_projects(self, top_n=10, with_readme=True, with_details=True):
         """
         获取前 N 个热门项目，包含完整信息
         """
@@ -213,7 +213,7 @@ class GitHubTrending:
 
 if __name__ == "__main__":
     gt = GitHubTrending()
-    projects = gt.get_top_projects(top_n=3)
+    projects = gt.get_top_projects(top_n=10)
     for p in projects:
         print(f"\n{p['full_name']} - ★{p['stars']} (+{p['daily_stars']} today)")
         print(f"  语言: {p['language']}")
