@@ -1,6 +1,6 @@
 # GitHub Trending Daily
 
-每天自动爬取 GitHub 热门项目，分析热度原因，并通过 QQ 邮箱推送给你。
+每天自动爬取 GitHub 热门项目，分析热度原因，并通过 Gmail 推送给你。
 
 ## 功能特性
 
@@ -44,8 +44,8 @@ cd github-trending-daily
 pip install -r requirements.txt
 
 # 设置环境变量
-export QQ_EMAIL="your-qq@qq.com"
-export QQ_EMAIL_PASSWORD="your-authorization-code"
+export GMAIL_USER="your-email@gmail.com"
+export GMAIL_APP_PASSWORD="your-app-password"
 export RECIPIENT_EMAIL="recipient@qq.com"
 # 可选：GitHub Token，提高 API 请求限额
 export GITHUB_TOKEN="your-github-token"
@@ -62,28 +62,22 @@ python main.py
 
 | Secret 名称 | 说明 | 示例 |
 |------------|------|------|
-| `QQ_EMAIL` | 发件人 QQ 邮箱 | `904553969@qq.com` |
-| `QQ_EMAIL_PASSWORD` | QQ 邮箱**授权码**（不是登录密码） | `abcdefghijklmnop` |
-| `RECIPIENT_EMAIL` | 收件人邮箱 | `904553969@qq.com` |
+| `GMAIL_USER` | 发件人 Gmail 地址 | `your-email@gmail.com` |
+| `GMAIL_APP_PASSWORD` | Gmail **应用专用密码**（不是登录密码） | `abcdefghijklmnop` |
+| `RECIPIENT_EMAIL` | 收件人邮箱 | `recipient@qq.com` |
 
 > 💡 `GITHUB_TOKEN` 不需要手动添加，GitHub Actions 会自动生成。
 
-### QQ 邮箱授权码获取方式
+### Gmail 应用专用密码获取方式
 
-QQ 邮箱的 SMTP 服务需要使用**授权码**而不是登录密码，获取步骤如下：
+Gmail SMTP 需要使用**应用专用密码**而不是登录密码：
 
-1. 登录 [QQ 邮箱网页版](https://mail.qq.com/)
-2. 点击顶部 **设置** → **账户**
-3. 向下滚动找到 **POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV 服务**
-4. 找到 **IMAP/SMTP 服务**，点击 **开启**
-5. 按照提示发送短信验证
-6. 验证成功后，系统会生成一个 **16 位授权码**，复制保存好
-7. 将这个授权码填入 `QQ_EMAIL_PASSWORD` Secret 中
+1. 在 Google 账号中开启**两步验证**
+2. 在 Google 账号设置中搜索并打开**应用专用密码**
+3. 创建一个新的应用专用密码
+4. 将生成的 16 位密码填入 `GMAIL_APP_PASSWORD` Secret 中
 
-> ⚠️ 注意：
-> - 授权码只会显示一次，请妥善保存
-> - 如果忘记了，可以重新生成
-> - 授权码相当于邮箱的专用密码，请不要泄露给他人
+> ⚠️ 注意：应用专用密码相当于邮箱的专用密码，请不要写入代码或提交到仓库。
 
 ## GitHub Actions 配置说明
 
@@ -131,7 +125,7 @@ cron: '0 1 * * *'  # UTC 01:00 = 北京时间 09:00
 ### Q: 邮件收不到怎么办？
 
 A: 请检查：
-1. QQ 邮箱授权码是否正确（注意不是登录密码）
+1. Gmail 应用专用密码是否正确（注意不是登录密码）
 2. 收件人邮箱是否正确
 3. 是否被归类到垃圾邮件
 4. Actions 运行日志是否有错误信息
@@ -141,7 +135,7 @@ A: 请检查：
 A: 在仓库的 **Actions** 页面查看具体失败日志，常见原因：
 - Secrets 未配置或配置错误
 - 网络问题导致无法访问 GitHub Trending 页面
-- QQ 邮箱 SMTP 认证失败
+- Gmail SMTP 认证失败
 
 ### Q: 可以修改推送的项目数量吗？
 

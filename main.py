@@ -84,12 +84,12 @@ def main():
 
     # 从环境变量读取配置
     github_token = os.environ.get("GITHUB_TOKEN", "")
-    qq_email = os.environ.get("QQ_EMAIL", "")
-    qq_email_password = os.environ.get("QQ_EMAIL_PASSWORD", "")
+    gmail_user = os.environ.get("GMAIL_USER", "")
+    gmail_app_password = os.environ.get("GMAIL_APP_PASSWORD", "")
     recipient_email = os.environ.get("RECIPIENT_EMAIL", "")
 
     # 判断是否需要发送邮件
-    email_configured = all([qq_email, qq_email_password, recipient_email])
+    email_configured = all([gmail_user, gmail_app_password, recipient_email])
     skip_email = args.no_email or not email_configured
 
     if skip_email and not args.no_email:
@@ -133,7 +133,7 @@ def main():
         # 4. 发送邮件（如果配置了邮箱且未指定 --no-email）
         if not skip_email:
             print("\n[STEP 4] 发送邮件...")
-            sender = EmailSender(qq_email, qq_email_password)
+            sender = EmailSender(gmail_user, gmail_app_password)
             success = sender.send_html_email(recipient_email, subject, html_content)
 
             if success:

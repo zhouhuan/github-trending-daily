@@ -1,6 +1,6 @@
 """
 邮件发送模块
-使用 QQ 邮箱 SMTP 发送 HTML 格式邮件
+使用 Gmail SMTP 发送 HTML 格式邮件
 """
 
 import smtplib
@@ -13,9 +13,9 @@ from datetime import datetime
 
 
 class EmailSender:
-    """QQ 邮箱 SMTP 邮件发送器"""
+    """Gmail SMTP 邮件发送器"""
 
-    SMTP_SERVER = "smtp.qq.com"
+    SMTP_SERVER = "smtp.gmail.com"
     SMTP_PORT = 465
 
     def __init__(self, sender_email, sender_password):
@@ -23,8 +23,8 @@ class EmailSender:
         初始化邮件发送器
 
         Args:
-            sender_email: 发件人 QQ 邮箱
-            sender_password: QQ 邮箱授权码（不是登录密码）
+            sender_email: 发件人 Gmail 地址
+            sender_password: Gmail 应用专用密码（不是登录密码）
         """
         self.sender_email = sender_email
         self.sender_password = sender_password
@@ -59,7 +59,7 @@ class EmailSender:
             print(f"[INFO] 邮件已发送至 {recipient_email}")
             return True
         except smtplib.SMTPAuthenticationError:
-            print("[ERROR] 邮箱认证失败，请检查 QQ 邮箱授权码是否正确")
+            print("[ERROR] Gmail 认证失败，请检查 Gmail 地址和应用专用密码是否正确")
             return False
         except smtplib.SMTPException as e:
             print(f"[ERROR] SMTP 发送失败: {e}")
